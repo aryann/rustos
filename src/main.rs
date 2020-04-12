@@ -9,9 +9,15 @@ use rustos::println;
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
+    rustos::init();
+
     println!("hello");
     println!("world");
     println!("some numbers: {} and {}", 1, 1.3376);
+
+    println!("Running debug interrupt...");
+    x86_64::instructions::interrupts::int3();
+    println!("Done handling interrupt.");
 
     #[cfg(test)]
     test_main();
